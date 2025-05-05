@@ -13,34 +13,44 @@
         android:layout_height="wrap_content"
         android:background="#B3E5FC"
         android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tituloFrases"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="304dp"
             android:text="@string/titulo_principal"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/banderaImage"
+            android:layout_marginEnd="8dp"
+            />
 
         <ImageView
             android:id="@+id/banderaImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="336dp"
-            android:contentDescription="Imágen bandera de Agentina"
             android:src="@drawable/bandera_argentina"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/desc_bandera"
+            app:layout_constraintTop_toTopOf="@id/tituloFrases"
+            app:layout_constraintBottom_toBottomOf="@id/tituloFrases"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tituloFrases"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

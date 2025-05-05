@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">am-acn4av-Modic</string>
+    <string name="titulo_principal">Frases</string>
+    <string name="desc_bandera">Imágen bandera de Agentina</string>
 </resources>
