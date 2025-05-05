@@ -19,6 +19,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout linearLayoutFrases;
+    private TextView tituloFrases;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        tituloFrases = findViewById(R.id.tituloFrases);
+
         ImageButton btnInicio = findViewById(R.id.btnInicio);
         ImageButton btnFavoritos = findViewById(R.id.btnFavoritos);
         ImageButton btnFraseDia = findViewById(R.id.btnFraseDia);
@@ -41,24 +44,37 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout layoutFraseDelDia = findViewById(R.id.fraseDelDia);
 
         btnInicio.setOnClickListener(v -> {
+            tituloFrases.setText("Frases");
             linearLayoutFrases.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             layoutFraseDelDia.setVisibility(View.GONE);
+
+            btnInicio.setImageResource(R.drawable.mate_on);
+            btnFavoritos.setImageResource(R.drawable.corazon_off);
+            btnFraseDia.setImageResource(R.drawable.pregunta);
         });
 
         btnFavoritos.setOnClickListener(v -> {
+            tituloFrases.setText("Favoritos");
             linearLayoutFrases.setVisibility(View.GONE);
             layoutFavoritos.setVisibility(View.VISIBLE);
             layoutFraseDelDia.setVisibility(View.GONE);
+
+            btnInicio.setImageResource(R.drawable.mate_off);
+            btnFavoritos.setImageResource(R.drawable.corazon_on);
+            btnFraseDia.setImageResource(R.drawable.pregunta);
         });
 
         btnFraseDia.setOnClickListener(v -> {
+            tituloFrases.setText("Frase del día");
             linearLayoutFrases.setVisibility(View.GONE);
             layoutFavoritos.setVisibility(View.GONE);
             layoutFraseDelDia.setVisibility(View.VISIBLE);
+
+            btnInicio.setImageResource(R.drawable.mate_off);
+            btnFavoritos.setImageResource(R.drawable.corazon_off);
+            btnFraseDia.setImageResource(R.drawable.pregunta);
         });
-
-
 
         cargarFrases();
     }
@@ -98,5 +114,4 @@ public class MainActivity extends AppCompatActivity {
             linearLayoutFrases.addView(textView);
         }
     }
-
 }
