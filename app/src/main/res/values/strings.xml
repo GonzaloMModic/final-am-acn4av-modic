@@ -3,4 +3,6 @@
     <string name="titulo_principal">Frases</string>
     <string name="desc_bandera">Imágen bandera de Agentina</string>
     <string name="btn_inicio">Frases</string>
+    <string name="marco_fondo">Imagen de Marco de fondo</string>
+    <string name="sol_fondo">Sol de fondo</string>
 </resources>

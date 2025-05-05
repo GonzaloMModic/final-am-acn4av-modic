@@ -3,6 +3,7 @@ package com.example.am_acn4av_modic;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,13 +26,39 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        linearLayoutFrases = findViewById(R.id.frasesContainer);
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ImageButton btnInicio = findViewById(R.id.btnInicio);
+        ImageButton btnFavoritos = findViewById(R.id.btnFavoritos);
+        ImageButton btnFraseDia = findViewById(R.id.btnFraseDia);
+
+        linearLayoutFrases = findViewById(R.id.frasesContainer);
+        LinearLayout layoutFavoritos = findViewById(R.id.frasesFavoritas);
+        LinearLayout layoutFraseDelDia = findViewById(R.id.fraseDelDia);
+
+        btnInicio.setOnClickListener(v -> {
+            linearLayoutFrases.setVisibility(View.VISIBLE);
+            layoutFavoritos.setVisibility(View.GONE);
+            layoutFraseDelDia.setVisibility(View.GONE);
+        });
+
+        btnFavoritos.setOnClickListener(v -> {
+            linearLayoutFrases.setVisibility(View.GONE);
+            layoutFavoritos.setVisibility(View.VISIBLE);
+            layoutFraseDelDia.setVisibility(View.GONE);
+        });
+
+        btnFraseDia.setOnClickListener(v -> {
+            linearLayoutFrases.setVisibility(View.GONE);
+            layoutFavoritos.setVisibility(View.GONE);
+            layoutFraseDelDia.setVisibility(View.VISIBLE);
+        });
+
+
 
         cargarFrases();
     }
@@ -71,4 +98,5 @@ public class MainActivity extends AppCompatActivity {
             linearLayoutFrases.addView(textView);
         }
     }
+
 }
