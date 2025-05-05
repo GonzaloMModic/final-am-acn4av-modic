@@ -2,6 +2,7 @@ package com.example.am_acn4av_modic;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -15,11 +16,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout linearLayoutFrases;
     private TextView tituloFrases;
+
+    private final List<String> frases = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +78,12 @@ public class MainActivity extends AppCompatActivity {
             btnInicio.setImageResource(R.drawable.mate_off);
             btnFavoritos.setImageResource(R.drawable.corazon_off);
             btnFraseDia.setImageResource(R.drawable.pregunta);
+            mostrarFraseDelDia();
         });
 
         cargarFrases();
     }
     private void cargarFrases() {
-        List<String> frases = new ArrayList<>();
         frases.add("A esta altura del partido");
         frases.add("Los de afuera son de palo");
         frases.add("Me quieren vender gato por liebre");
@@ -103,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         frases.add("Acá el que no corre vuela");
         frases.add("Buscarle la quinta pata al gato");
         frases.add("No hay tu tía");
+        Log.d("Frases", "Total frases cargadas: " + frases.size());
 
         for (String frase : frases) {
             TextView textView = new TextView(this);
@@ -112,6 +117,16 @@ public class MainActivity extends AppCompatActivity {
             textView.setTextColor(Color.BLACK); // Color del texto
 
             linearLayoutFrases.addView(textView);
+        }
+    }
+
+    private void mostrarFraseDelDia() {
+        if (!frases.isEmpty()) {
+            Random random = new Random();
+            String fraseAleatoria = frases.get(random.nextInt(frases.size()));
+
+            TextView fraseDelDiaText = findViewById(R.id.fraseDelDiaText);
+            fraseDelDiaText.setText(fraseAleatoria);
         }
     }
 }
