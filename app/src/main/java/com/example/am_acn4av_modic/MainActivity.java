@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -43,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btnFavoritos = findViewById(R.id.btnFavoritos);
         ImageButton btnFraseDia = findViewById(R.id.btnFraseDia);
 
+        ScrollView scrollFavoritos = findViewById(R.id.scrollFavoritos);
         linearLayoutFrases = findViewById(R.id.frasesContainer);
-        LinearLayout layoutFavoritos = findViewById(R.id.frasesFavoritas);
         LinearLayout layoutFraseDelDia = findViewById(R.id.fraseDelDia);
 
         btnInicio.setOnClickListener(v -> {
             tituloFrases.setText("Frases");
             linearLayoutFrases.setVisibility(View.VISIBLE);
-            layoutFavoritos.setVisibility(View.GONE);
+            scrollFavoritos.setVisibility(View.GONE);
             layoutFraseDelDia.setVisibility(View.GONE);
 
             btnInicio.setImageResource(R.drawable.mate_on);
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         btnFavoritos.setOnClickListener(v -> {
             tituloFrases.setText("Favoritos");
             linearLayoutFrases.setVisibility(View.GONE);
-            layoutFavoritos.setVisibility(View.VISIBLE);
+            scrollFavoritos.setVisibility(View.VISIBLE);
             layoutFraseDelDia.setVisibility(View.GONE);
 
             btnInicio.setImageResource(R.drawable.mate_off);
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         btnFraseDia.setOnClickListener(v -> {
             tituloFrases.setText("Frase del día");
             linearLayoutFrases.setVisibility(View.GONE);
-            layoutFavoritos.setVisibility(View.GONE);
+            scrollFavoritos.setVisibility(View.GONE);
             layoutFraseDelDia.setVisibility(View.VISIBLE);
 
             btnInicio.setImageResource(R.drawable.mate_off);

@@ -8,4 +8,5 @@
     <string name="frase_del_dia_ejemplo">Frase del día ejemplo akjsdgaklsdbjkalsasdasdasdasdasda</string>
     <string name="btn_configuracion">boton configuración</string>
     <string name="btn_nuevas_frases">boton para agregar nuevas frases</string>
+    <string name="sin_frases">Aún no hay frases favoritas</string>
 </resources>

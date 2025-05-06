@@ -186,27 +186,35 @@
         </ScrollView>
 
         <!-- Sección: Favoritos -->
-        <LinearLayout
-            android:id="@+id/frasesFavoritas"
+        <ScrollView
+            android:id="@+id/scrollFavoritos"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
+            android:layout_height="420dp"
+            android:fillViewport="true"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            >
 
-            <ScrollView
-                android:id="@+id/scrollFavoritos"
+            <LinearLayout
+                android:id="@+id/frasesFavoritas"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:paddingStart="55dp"
-                android:paddingEnd="40dp">
-            </ScrollView>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/mensajeVacio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sin_frases"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+        </ScrollView>
 
         <!-- Sección: Frase del día -->
         <LinearLayout
@@ -236,7 +244,6 @@
                     android:textSize="18sp"
                     android:textColor="#000000"
                     />
-
             </ScrollView>
 
         </LinearLayout>
