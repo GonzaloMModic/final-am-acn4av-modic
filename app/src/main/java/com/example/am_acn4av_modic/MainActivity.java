@@ -22,9 +22,12 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout linearLayoutFrases;
+    private LinearLayout layoutFrasesFavoritas;
     private TextView tituloFrases;
+    private LinearLayout layoutFraseDelDia;
 
     private final List<String> frases = new ArrayList<>();
+    protected List<String> frasesFavoritas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +42,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         tituloFrases = findViewById(R.id.tituloFrases);
+        layoutFrasesFavoritas = findViewById(R.id.frasesFavoritas);
+        linearLayoutFrases = findViewById(R.id.frasesContainer);
+        LinearLayout layoutFraseDelDia = findViewById(R.id.fraseDelDia);
 
         ImageButton btnInicio = findViewById(R.id.btnInicio);
         ImageButton btnFavoritos = findViewById(R.id.btnFavoritos);
         ImageButton btnFraseDia = findViewById(R.id.btnFraseDia);
 
         ScrollView scrollFavoritos = findViewById(R.id.scrollFavoritos);
-        linearLayoutFrases = findViewById(R.id.frasesContainer);
-        LinearLayout layoutFraseDelDia = findViewById(R.id.fraseDelDia);
 
         btnInicio.setOnClickListener(v -> {
             tituloFrases.setText("Frases");
@@ -83,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         cargarFrases();
+        mostrarFrases();
     }
     private void cargarFrases() {
         frases.add("A esta altura del partido");
@@ -108,17 +113,46 @@ public class MainActivity extends AppCompatActivity {
         frases.add("Acá el que no corre vuela");
         frases.add("Buscarle la quinta pata al gato");
         frases.add("No hay tu tía");
+
         Log.d("Frases", "Total frases cargadas: " + frases.size());
 
+
+    }
+
+    private void mostrarFrases() {
         for (String frase : frases) {
+            Log.d("DEBUG", "Agregando frase: " + frase);
+            LinearLayout contenedor = new LinearLayout(this);
+            contenedor.setOrientation(LinearLayout.HORIZONTAL);
+            contenedor.setPadding(0, 10, 0, 10);
+
             TextView textView = new TextView(this);
             textView.setText(frase);
-            textView.setTextSize(18); // Puedes ajustar el tamaño del texto
-            textView.setPadding(0, 10, 0, 10); // Espaciado entre frases
-            textView.setTextColor(Color.BLACK); // Color del texto
+            textView.setTextSize(18);
+            textView.setTextColor(Color.BLACK);
+            textView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
 
-            linearLayoutFrases.addView(textView);
+            ImageButton btnFav = new ImageButton(this);
+            btnFav.setImageResource(R.drawable.corazon_off);
+            btnFav.setBackgroundColor(Color.TRANSPARENT);
+            btnFav.setAdjustViewBounds(true);
+            btnFav.setMaxWidth(100);
+            btnFav.setMaxHeight(100);
+
+            btnFav.setOnClickListener(v -> {
+                if (!frasesFavoritas.contains(frase)) {
+                    frasesFavoritas.add(frase);
+                    btnFav.setImageResource(R.drawable.corazon_on);
+                    agregarAFavoritos(frase);
+                }
+            });
+
+            contenedor.addView(textView);
+            contenedor.addView(btnFav);
+
+            linearLayoutFrases.addView(contenedor);
         }
+
     }
 
     private void mostrarFraseDelDia() {
@@ -129,5 +163,15 @@ public class MainActivity extends AppCompatActivity {
             TextView fraseDelDiaText = findViewById(R.id.fraseDelDiaText);
             fraseDelDiaText.setText(fraseAleatoria);
         }
+    }
+
+    private void agregarAFavoritos(String frase) {
+        TextView textoFavorito = new TextView(this);
+        textoFavorito.setText(frase);
+        textoFavorito.setTextSize(18);
+        textoFavorito.setTextColor(Color.BLACK);
+        textoFavorito.setPadding(80, 10, 80, 10);
+        textoFavorito.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        layoutFrasesFavoritas.addView(textoFavorito);
     }
 }

@@ -204,15 +204,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/mensajeVacio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sin_frases"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    />
-
             </LinearLayout>
         </ScrollView>
 
