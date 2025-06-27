@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "479787344813",
+    "project_id": "argenlingo",
+    "storage_bucket": "argenlingo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479787344813:android:2dfbe45dbe7e3a03cc3724",
+        "android_client_info": {
+          "package_name": "com.example.am_acn4av_modic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIJ9WGQxcGRmqkUNjYKYIBxmH7x7UCiNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
