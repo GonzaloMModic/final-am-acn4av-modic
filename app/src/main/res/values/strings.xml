@@ -10,4 +10,5 @@
     <string name="btn_nuevas_frases">boton para agregar nuevas frases</string>
     <string name="sin_frases">Aún no hay frases favoritas</string>
     <string name="img_matecito_nivel_uso">Imágen matecito para nivel de uso</string>
+    <string name="hello">hola_mundo</string>
 </resources>
