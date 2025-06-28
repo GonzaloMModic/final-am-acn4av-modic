@@ -15,4 +15,6 @@
     <string name="ingresoMail">Ingrese su email</string>
     <string name="ingrese_pass">Ingrese su contraseña</string>
     <string name="btn_agregar">boton de agregar frase</string>
+    <string name="volver">Volver</string>
+    <string name="registrate">Registrate</string>
 </resources>
