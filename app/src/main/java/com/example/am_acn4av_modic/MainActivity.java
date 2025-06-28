@@ -6,28 +6,34 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-
+import androidx.appcompat.widget.SearchView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private FraseAdapter adapter;
+    private ArrayList<Frase> frases = new ArrayList<>();
+    private Set<Integer> frasesFavoritas = new HashSet<>();
 
-    private LinearLayout linearLayoutFrases;
-    private LinearLayout layoutFrasesFavoritas;
+    private RecyclerView recyclerFavoritos;
+    private FraseAdapter adapterFavoritos;
+
+    //----
     private TextView tituloFrases;
     private LinearLayout layoutFraseDelDia;
-
-    private final List<String> frases = new ArrayList<>();
-    protected List<String> frasesFavoritas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +44,29 @@ public class MainActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+
             return insets;
         });
 
+        SearchView searchView = findViewById(R.id.barraBusqueda);
+        recyclerView = findViewById(R.id.recyclerViewFrases);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerFavoritos = findViewById(R.id.recyclerFavoritos);
+        recyclerFavoritos.setLayoutManager(new LinearLayoutManager(this));
+
+
         tituloFrases = findViewById(R.id.tituloFrases);
-        layoutFrasesFavoritas = findViewById(R.id.frasesFavoritas);
-        linearLayoutFrases = findViewById(R.id.frasesContainer);
-        LinearLayout layoutFraseDelDia = findViewById(R.id.fraseDelDia);
+
+        layoutFraseDelDia = findViewById(R.id.fraseDelDia);
 
         ImageButton btnInicio = findViewById(R.id.btnInicio);
         ImageButton btnFavoritos = findViewById(R.id.btnFavoritos);
         ImageButton btnFraseDia = findViewById(R.id.btnFraseDia);
 
-        ScrollView scrollFavoritos = findViewById(R.id.scrollFavoritos);
-
         btnInicio.setOnClickListener(v -> {
             tituloFrases.setText("Frases");
-            linearLayoutFrases.setVisibility(View.VISIBLE);
-            scrollFavoritos.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            recyclerFavoritos.setVisibility(View.GONE);
             layoutFraseDelDia.setVisibility(View.GONE);
 
             btnInicio.setImageResource(R.drawable.mate_on);
@@ -65,113 +76,108 @@ public class MainActivity extends AppCompatActivity {
 
         btnFavoritos.setOnClickListener(v -> {
             tituloFrases.setText("Favoritos");
-            linearLayoutFrases.setVisibility(View.GONE);
-            scrollFavoritos.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            recyclerFavoritos.setVisibility(View.VISIBLE);
             layoutFraseDelDia.setVisibility(View.GONE);
 
             btnInicio.setImageResource(R.drawable.mate_off);
             btnFavoritos.setImageResource(R.drawable.corazon_on);
             btnFraseDia.setImageResource(R.drawable.pregunta);
+
+
+            List<Frase> favoritas = new ArrayList<>();
+            for (Frase f : frases) {
+                if (frasesFavoritas.contains(f.getIdFrase())) {
+                    favoritas.add(f);
+                }
+            }
+            adapterFavoritos = new FraseAdapter(favoritas, this, frasesFavoritas, this::agregarAFavoritos);
+            recyclerFavoritos.setAdapter(adapterFavoritos);
+
         });
 
         btnFraseDia.setOnClickListener(v -> {
-            tituloFrases.setText("Frase del día");
-            linearLayoutFrases.setVisibility(View.GONE);
-            scrollFavoritos.setVisibility(View.GONE);
+            tituloFrases.setText("Frase aleatoria");
+            recyclerView.setVisibility(View.GONE);
+            recyclerFavoritos.setVisibility(View.GONE);
             layoutFraseDelDia.setVisibility(View.VISIBLE);
 
             btnInicio.setImageResource(R.drawable.mate_off);
             btnFavoritos.setImageResource(R.drawable.corazon_off);
             btnFraseDia.setImageResource(R.drawable.pregunta);
-            mostrarFraseDelDia();
+            mostrarFraseAleatoria();
         });
 
         cargarFrases();
-        mostrarFrases();
+        adapter = new FraseAdapter(frases, this, frasesFavoritas, this::agregarAFavoritos);
+        recyclerView.setAdapter(adapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Cuando el usuario presiona enter/lupa
+                aplicarFiltro(query);
+                adapter.filtrar(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Mientras el usuario escribe
+                aplicarFiltro(newText);
+                adapter.filtrar(newText);
+                return false;
+            }
+        });
+    }
+
+    private void aplicarFiltro(String texto) {
+        if (recyclerView.getVisibility() == View.VISIBLE) {
+            adapter.filtrar(texto);
+        } else if (recyclerFavoritos.getVisibility() == View.VISIBLE) {
+            adapterFavoritos.filtrar(texto);
+        }
     }
     private void cargarFrases() {
-        frases.add("A esta altura del partido");
-        frases.add("Los de afuera son de palo");
-        frases.add("Me quieren vender gato por liebre");
-        frases.add("Del año del ñaupa");
-        frases.add("En Pampa y la vía");
-        frases.add("A caballo regalado no se le miran los dientes");
-        frases.add("Cocodrilo que duerme se lo lleva la corriente");
-        frases.add("Más vale pájaro en mano que cien volando");
-        frases.add("Ser de fierro");
-        frases.add("Ser Gardel");
-        frases.add("Pegar un tubazo");
-        frases.add("Ser de madera");
-        frases.add("De queruza");
-        frases.add("Se le saltó la térmica");
-        frases.add("Hacer la gamba");
-        frases.add("Estar al horno");
-        frases.add("Saltar la ficha");
-        frases.add("Ser un chanta");
-        frases.add("Mandar fruta");
-        frases.add("Me tiro a la pileta");
-        frases.add("Acá el que no corre vuela");
-        frases.add("Buscarle la quinta pata al gato");
-        frases.add("No hay tu tía");
-
+        frases.add(new Frase(1, "A esta altura del partido", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(2, "Los de afuera son de palo", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(3, "Me quieren vender gato por liebre", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(4, "Del año del ñaupa", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(5, "En Pampa y la vía", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(6, "A caballo regalado no se le miran los dientes", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(7, "Cocodrilo que duerme se lo lleva la corriente", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(8, "Más vale pájaro en mano que cien volando", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(9, "Ser de fierro", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(10, "Ser Gardel", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(11, "Pegar un tubazo", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(12, "Ser de madera", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(13, "De queruza", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(14, "Se le saltó la térmica", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(15, "Hacer la gamba", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(16, "Estar al horno", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(17, "Saltar la ficha", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(18, "Ser un chanta", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(19, "Mandar fruta", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(20, "Me tiro a la pileta", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(21, "Acá el que no corre vuela", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(22, "Buscarle la quinta pata al gato", "origen1", "significado2", "ejemplo3", 0));
+        frases.add(new Frase(23, "No hay tu tía", "origen1", "significado2", "ejemplo3", 0));
         Log.d("Frases", "Total frases cargadas: " + frases.size());
-
-
     }
-
-    private void mostrarFrases() {
-        for (String frase : frases) {
-            Log.d("DEBUG", "Agregando frase: " + frase);
-            LinearLayout contenedor = new LinearLayout(this);
-            contenedor.setOrientation(LinearLayout.HORIZONTAL);
-            contenedor.setPadding(0, 10, 0, 10);
-
-            TextView textView = new TextView(this);
-            textView.setText(frase);
-            textView.setTextSize(18);
-            textView.setTextColor(Color.BLACK);
-            textView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
-
-            ImageButton btnFav = new ImageButton(this);
-            btnFav.setImageResource(R.drawable.corazon_off);
-            btnFav.setBackgroundColor(Color.TRANSPARENT);
-            btnFav.setAdjustViewBounds(true);
-            btnFav.setMaxWidth(100);
-            btnFav.setMaxHeight(100);
-
-            btnFav.setOnClickListener(v -> {
-                if (!frasesFavoritas.contains(frase)) {
-                    frasesFavoritas.add(frase);
-                    btnFav.setImageResource(R.drawable.corazon_on);
-                    agregarAFavoritos(frase);
-                }
-            });
-
-            contenedor.addView(textView);
-            contenedor.addView(btnFav);
-
-            linearLayoutFrases.addView(contenedor);
-        }
-
-    }
-
-    private void mostrarFraseDelDia() {
+    private void mostrarFraseAleatoria() {
         if (!frases.isEmpty()) {
             Random random = new Random();
-            String fraseAleatoria = frases.get(random.nextInt(frases.size()));
-
+            Frase fraseAleatoria = frases.get(random.nextInt(frases.size()));
             TextView fraseDelDiaText = findViewById(R.id.fraseDelDiaText);
-            fraseDelDiaText.setText(fraseAleatoria);
+            fraseDelDiaText.setText(fraseAleatoria.getFrase());
         }
     }
-
-    private void agregarAFavoritos(String frase) {
+    private void agregarAFavoritos(Frase frase) {
         TextView textoFavorito = new TextView(this);
-        textoFavorito.setText(frase);
+        textoFavorito.setText(frase.getFrase());
         textoFavorito.setTextSize(18);
         textoFavorito.setTextColor(Color.BLACK);
         textoFavorito.setPadding(80, 10, 80, 10);
         textoFavorito.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        layoutFrasesFavoritas.addView(textoFavorito);
     }
 }

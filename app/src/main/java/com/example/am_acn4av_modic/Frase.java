@@ -10,7 +10,6 @@ public class Frase {
     private boolean esFavorita;
 
     public Frase() {
-        // Constructor vacío requerido por Firestore
     }
 
     public Frase(int idFrase, String frase, String origen, String significado, String ejemploUso, int nivelUso) {
@@ -40,4 +39,17 @@ public class Frase {
     public void setEjemploUso(String ejemploUso) { this.ejemploUso = ejemploUso; }
     public void setNivelUso(int nivelUso) { this.nivelUso = nivelUso; }
     public void setEsFavorita(boolean esFavorita) { this.esFavorita = esFavorita; }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Frase)) return false;
+        Frase otra = (Frase) obj;
+        return this.idFrase == otra.idFrase;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(idFrase);
+    }
+
 }

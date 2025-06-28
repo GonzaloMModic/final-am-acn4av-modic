@@ -11,4 +11,5 @@
     <string name="sin_frases">Aún no hay frases favoritas</string>
     <string name="img_matecito_nivel_uso">Imágen matecito para nivel de uso</string>
     <string name="hello">hola_mundo</string>
+    <string name="btn_favorito">boton para agregar frases a la lista de favoritos</string>
 </resources>

@@ -133,22 +133,24 @@
             android:contentDescription="@string/btn_nuevas_frases"
             android:scaleType="fitCenter"
             android:src="@drawable/btn_agregar"
-            app:layout_constraintBottom_toBottomOf="@+id/scrollFrases"
-            app:layout_constraintEnd_toEndOf="@+id/scrollFrases"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewFrases"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewFrases"
             app:layout_constraintStart_toEndOf="@+id/solPatrio" />
 
         <ImageView
             android:id="@+id/fondoMarco"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/fondo_marco"
             android:alpha="0.2"
+            android:contentDescription="@string/marco_fondo"
             android:scaleType="fitCenter"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/fondo_marco"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/marco_fondo"/>
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/solPatrio"
@@ -164,48 +166,33 @@
             android:contentDescription="@string/sol_fondo"/>
 
         <!-- Sección: Lista de frases -->
-        <ScrollView
-            android:id="@+id/scrollFrases"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFrases"
             android:layout_width="0dp"
             android:layout_height="420dp"
-            android:fillViewport="true"
             android:paddingStart="55dp"
             android:paddingEnd="40dp"
+            android:clipToPadding="false"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:id="@+id/frasesContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            </LinearLayout>
-        </ScrollView>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_frase"/>
 
         <!-- Sección: Favoritos -->
-        <ScrollView
-            android:id="@+id/scrollFavoritos"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFavoritos"
             android:layout_width="0dp"
-            android:layout_height="420dp"
-            android:fillViewport="true"
+            android:layout_height="0dp"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            >
-
-            <LinearLayout
-                android:id="@+id/frasesFavoritas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            </LinearLayout>
-        </ScrollView>
+            android:padding="16dp"
+            android:clipToPadding="false"
+            />
 
         <!-- Sección: Frase del día -->
         <LinearLayout
@@ -250,7 +237,6 @@
                     android:paddingTop="16dp"
                     android:paddingBottom="16dp">
 
-                    <!-- Acá ponés tus 5 imágenes -->
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
