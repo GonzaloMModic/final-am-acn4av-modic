@@ -33,10 +33,6 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtra("userEmail", email);
             startActivity(intent);
             finish();
-        } else{
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
         }
 
         Button btnIngresar = findViewById(R.id.btnIngresar);

@@ -27,19 +27,8 @@
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/banderaImage"
+            app:layout_constraintEnd_toStartOf="@id/btnLogOut"
             android:layout_marginEnd="8dp"
-            />
-
-        <ImageView
-            android:id="@+id/banderaImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/bandera_argentina"
-            android:contentDescription="@string/desc_bandera"
-            app:layout_constraintTop_toTopOf="@id/tituloFrases"
-            app:layout_constraintBottom_toBottomOf="@id/tituloFrases"
-            app:layout_constraintEnd_toEndOf="parent"
             />
 
         <androidx.appcompat.widget.SearchView
@@ -54,19 +43,31 @@
             />
 
         <ImageButton
-            android:id="@+id/configuracion"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:id="@+id/btnAgregar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@null"
-            android:contentDescription="@string/btn_configuracion"
+            android:contentDescription="@string/btn_agregar"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/configuracion"
+            android:src="@drawable/btn_agregar"
             app:layout_constraintStart_toEndOf="@+id/barraBusqueda"
             app:layout_constraintBottom_toBottomOf="@id/barraBusqueda"/>
 
-
+        <ImageButton
+            android:id="@+id/btnLogOut"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/usergris"
+            android:background="@drawable/rounded_button"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/desc_bandera"
+            app:layout_constraintTop_toTopOf="@id/tituloFrases"
+            app:layout_constraintBottom_toBottomOf="@id/tituloFrases"
+            app:layout_constraintBottom_toTopOf="@id/btnAgregar"
+            app:layout_constraintStart_toStartOf="@id/btnAgregar"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -122,20 +123,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-
-        <ImageButton
-            android:id="@+id/btnAgregar"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:contentDescription="@string/btn_nuevas_frases"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_agregar"
-            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewFrases"
-            app:layout_constraintEnd_toEndOf="@+id/recyclerViewFrases"
-            app:layout_constraintStart_toEndOf="@+id/solPatrio" />
 
         <ImageView
             android:id="@+id/fondoMarco"

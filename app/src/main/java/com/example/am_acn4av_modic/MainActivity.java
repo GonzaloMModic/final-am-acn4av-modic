@@ -1,5 +1,6 @@
 package com.example.am_acn4av_modic;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +21,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +146,27 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        ImageButton btnLogOut = findViewById(R.id.btnLogOut);
+
+        btnLogOut.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Cerrar sesión")
+                    .setMessage("¿Estás seguro que querés cerrar sesión?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        // Aquí hacés el logout
+                        FirebaseAuth.getInstance().signOut();
+                        // Volver al login
+                        Intent intent = new Intent(this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                        dialog.dismiss(); // simplemente cierra el diálogo
+                    })
+                    .show();
+        });
+
     }
 
     private void aplicarFiltro(String texto) {
