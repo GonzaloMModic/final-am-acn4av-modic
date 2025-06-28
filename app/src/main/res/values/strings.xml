@@ -12,4 +12,6 @@
     <string name="img_matecito_nivel_uso">Imágen matecito para nivel de uso</string>
     <string name="hello">hola_mundo</string>
     <string name="btn_favorito">boton para agregar frases a la lista de favoritos</string>
+    <string name="ingresoMail">Ingrese su email</string>
+    <string name="ingrese_pass">Ingrese su contraseña</string>
 </resources>
