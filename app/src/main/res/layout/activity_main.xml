@@ -225,36 +225,10 @@
                     android:paddingBottom="16dp">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/matecito"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:src="@drawable/mates5"
                         android:contentDescription="@string/img_matecito_nivel_uso"/>
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/matecito"
-                        android:contentDescription="@string/img_matecito_nivel_uso"/>
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/matecito"
-                        android:contentDescription="@string/img_matecito_nivel_uso"/>
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/matecito"
-                        android:contentDescription="@string/img_matecito_nivel_uso"/>
-
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/matecito"
-                        android:contentDescription="@string/img_matecito_nivel_uso"/>
-
 
                 </LinearLayout>
 
