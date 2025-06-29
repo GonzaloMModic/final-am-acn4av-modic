@@ -79,8 +79,6 @@ public class FraseAdapter extends RecyclerView.Adapter<FraseAdapter.FraseViewHol
     public int getItemCount() {
         return frasesFiltradas.size();
     }
-
-
     public void filtrar(String texto) {
         frasesFiltradas.clear();
         if (texto.isEmpty()) {

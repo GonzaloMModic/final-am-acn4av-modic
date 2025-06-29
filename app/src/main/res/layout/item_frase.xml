@@ -6,38 +6,27 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textoFrase"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:text="Ejemplo"
+        android:textSize="18sp"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toStartOf="@id/btnFav"
+        android:layout_marginEnd="8dp"/>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textoFrase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="#000" />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/btnFav"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:contentDescription="@string/btn_favorito"
-            android:scaleType="fitCenter"
-            android:src="@drawable/corazon_off"/>
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/btnFav"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/corazon_off"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

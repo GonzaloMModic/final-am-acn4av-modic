@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
@@ -23,6 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerFavoritos;
     private FraseAdapter adapterFavoritos;
-
     //----
     private TextView tituloFrases;
     private LinearLayout layoutFraseDelDia;
@@ -125,9 +127,8 @@ public class MainActivity extends AppCompatActivity {
             mostrarFraseAleatoria();
         });
 
-        cargarFrases();
-        adapter = new FraseAdapter(frases, this, frasesFavoritas, this::agregarAFavoritos);
-        recyclerView.setAdapter(adapter);
+        cargarFrasesDesdeFirestore();
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     .setTitle("Cerrar sesión")
                     .setMessage("¿Estás seguro que querés cerrar sesión?")
                     .setPositiveButton("Sí", (dialog, which) -> {
-                        // Aquí hacés el logout
+                        // Aquí se hace el logout
                         FirebaseAuth.getInstance().signOut();
                         // Volver al login
                         Intent intent = new Intent(this, LoginActivity.class);
@@ -176,32 +177,38 @@ public class MainActivity extends AppCompatActivity {
             adapterFavoritos.filtrar(texto);
         }
     }
-    private void cargarFrases() {
-        frases.add(new Frase(1, "A esta altura del partido", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(2, "Los de afuera son de palo", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(3, "Me quieren vender gato por liebre", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(4, "Del año del ñaupa", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(5, "En Pampa y la vía", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(6, "A caballo regalado no se le miran los dientes", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(7, "Cocodrilo que duerme se lo lleva la corriente", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(8, "Más vale pájaro en mano que cien volando", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(9, "Ser de fierro", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(10, "Ser Gardel", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(11, "Pegar un tubazo", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(12, "Ser de madera", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(13, "De queruza", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(14, "Se le saltó la térmica", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(15, "Hacer la gamba", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(16, "Estar al horno", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(17, "Saltar la ficha", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(18, "Ser un chanta", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(19, "Mandar fruta", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(20, "Me tiro a la pileta", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(21, "Acá el que no corre vuela", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(22, "Buscarle la quinta pata al gato", "origen1", "significado2", "ejemplo3", 0));
-        frases.add(new Frase(23, "No hay tu tía", "origen1", "significado2", "ejemplo3", 0));
-        Log.d("Frases", "Total frases cargadas: " + frases.size());
+    private void cargarFrasesDesdeFirestore() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("frases")
+                .orderBy("idFrase")  // Ordena por ID numérico
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+
+                    frases.clear();
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        try {
+                            Frase frase = doc.toObject(Frase.class);
+                            if (frase != null) {
+                                Log.d("FirestoreFrase", "Frase cargada: " + frase.getIdFrase() + " - " + frase.getFrase());
+                                frases.add(frase);
+                            }
+                        } catch (Exception e) {
+                            Log.e("Firestore", "Error al convertir documento: " + doc.getId(), e);
+                        }
+                    }
+                    adapter = new FraseAdapter(frases, this, frasesFavoritas, this::agregarAFavoritos);
+                    recyclerView.setAdapter(adapter);
+                    adapter.filtrar("");
+                    Log.d("Firestore", "Frases cargadas: " + frases.size());
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error al cargar frases", e);
+                    Toast.makeText(this, "Error al cargar frases", Toast.LENGTH_SHORT).show();
+                });
     }
+
+
     private void mostrarFraseAleatoria() {
         if (!frases.isEmpty()) {
             Random random = new Random();
