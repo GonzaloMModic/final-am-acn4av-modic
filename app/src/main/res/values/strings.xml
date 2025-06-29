@@ -17,4 +17,15 @@
     <string name="btn_agregar">boton de agregar frase</string>
     <string name="volver">Volver</string>
     <string name="registrate">Registrate</string>
+    <string name="titulo_detalle">Detalle de la frase</string>
+    <string name="frase">Frase:</string>
+    <string name="texto_frase">Texto de la frase</string>
+    <string name="origen">Origen:</string>
+    <string name="texto_origen">Texto del origen</string>
+    <string name="significado">Significado:</string>
+    <string name="texto_significado">Texto del significado</string>
+    <string name="ejemplo_de_uso">Ejemplo de uso:</string>
+    <string name="texto_ejemplo_de_uso">Texto del ejemplo de uso</string>
+    <string name="nivel_de_uso">Nivel de Uso:</string>
+    <string name="descripcion_nivel_de_uso">nivel de uso</string>
 </resources>
