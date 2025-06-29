@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_AGREGAR_FRASE = 1001;
     //----
     private TextView tituloFrases;
-    private LinearLayout layoutFraseDelDia;
+    private ScrollView layoutFraseAleatoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         tituloFrases = findViewById(R.id.tituloFrases);
+        layoutFraseAleatoria = findViewById(R.id.fraseAleatoria);
 
-        layoutFraseDelDia = findViewById(R.id.fraseDelDia);
+        recyclerView.setVisibility(View.VISIBLE);
+        recyclerFavoritos.setVisibility(View.GONE);
+        layoutFraseAleatoria.setVisibility(View.GONE);
 
         ImageButton btnInicio = findViewById(R.id.btnInicio);
         ImageButton btnFavoritos = findViewById(R.id.btnFavoritos);
@@ -88,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             tituloFrases.setText("Frases");
             recyclerView.setVisibility(View.VISIBLE);
             recyclerFavoritos.setVisibility(View.GONE);
-            layoutFraseDelDia.setVisibility(View.GONE);
+            layoutFraseAleatoria.setVisibility(View.GONE);
 
             btnInicio.setImageResource(R.drawable.mate_on);
             btnFavoritos.setImageResource(R.drawable.corazon_off);
@@ -99,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             tituloFrases.setText("Favoritos");
             recyclerView.setVisibility(View.GONE);
             recyclerFavoritos.setVisibility(View.VISIBLE);
-            layoutFraseDelDia.setVisibility(View.GONE);
+            layoutFraseAleatoria.setVisibility(View.GONE);
 
             btnInicio.setImageResource(R.drawable.mate_off);
             btnFavoritos.setImageResource(R.drawable.corazon_on);
@@ -121,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             tituloFrases.setText("Frase aleatoria");
             recyclerView.setVisibility(View.GONE);
             recyclerFavoritos.setVisibility(View.GONE);
-            layoutFraseDelDia.setVisibility(View.VISIBLE);
+            layoutFraseAleatoria.setVisibility(View.VISIBLE);
 
             btnInicio.setImageResource(R.drawable.mate_off);
             btnFavoritos.setImageResource(R.drawable.corazon_off);
@@ -231,8 +236,22 @@ public class MainActivity extends AppCompatActivity {
         if (!frases.isEmpty()) {
             Random random = new Random();
             Frase fraseAleatoria = frases.get(random.nextInt(frases.size()));
-            TextView fraseDelDiaText = findViewById(R.id.fraseDelDiaText);
-            fraseDelDiaText.setText(fraseAleatoria.getFrase());
+
+            TextView fraseText = findViewById(R.id.fraseDelDiaText);
+            TextView origenText = findViewById(R.id.origenFraseDelDia);
+            TextView significadoText = findViewById(R.id.significadoFraseDelDia);
+            TextView ejemploText = findViewById(R.id.ejemploFraseDelDia);
+            ImageView imagenNivelUso = findViewById(R.id.nivelUsoFraseDelDia);
+
+            fraseText.setText(fraseAleatoria.getFrase());
+            origenText.setText(fraseAleatoria.getOrigen());
+            significadoText.setText(fraseAleatoria.getSignificado());
+            ejemploText.setText(fraseAleatoria.getEjemploUso());
+
+            // Mostrar imagen según nivel de uso (de 0 a 5)
+            int nivel = fraseAleatoria.getNivelUso();
+            int resId = getResources().getIdentifier("mates" + nivel, "drawable", getPackageName());
+            imagenNivelUso.setImageResource(resId);
         }
     }
     private void agregarAFavoritos(Frase frase) {

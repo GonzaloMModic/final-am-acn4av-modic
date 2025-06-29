@@ -181,63 +181,121 @@
             android:clipToPadding="false"
             />
 
-        <!-- Sección: Frase del día -->
-        <LinearLayout
-            android:id="@+id/fraseDelDia"
+        <!-- Sección: Frase Aleatoria -->
+        <ScrollView
+            android:id="@+id/fraseAleatoria"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
+            android:layout_height="420dp"
+            android:paddingStart="55dp"
+            android:paddingEnd="40dp"
+            android:clipToPadding="false"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <ScrollView
-                android:id="@+id/scrollFraseDelDia"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:paddingStart="55dp"
-                android:paddingEnd="40dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp">
 
-            <!-- Este es el único hijo del ScrollView -->
-            <LinearLayout
+            <!-- Frase -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frase:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/fraseDelDiaText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="..."
+                android:layout_marginBottom="12dp"
+                android:textSize="16sp"
+                android:textColor="#000000" />
 
-                <TextView
-                    android:id="@+id/fraseDelDiaText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="115dp"
-                    android:textSize="18sp"
-                    android:textColor="#000000" />
+            <!-- Origen -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Origen:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000000" />
 
-                <LinearLayout
-                    android:id="@+id/layoutEstrellas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp">
+            <TextView
+                android:id="@+id/origenFraseDelDia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:layout_marginBottom="12dp"
+                android:textSize="16sp"
+                android:textColor="#000000" />
 
-                    <ImageView
-                        android:layout_width="300dp"
-                        android:layout_height="300dp"
-                        android:src="@drawable/mates5"
-                        android:contentDescription="@string/img_matecito_nivel_uso"/>
+            <!-- Significado -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Significado:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000000" />
 
-                </LinearLayout>
+            <TextView
+                android:id="@+id/significadoFraseDelDia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:layout_marginBottom="12dp"
+                android:textSize="16sp"
+                android:textColor="#000000" />
 
+            <!-- Ejemplo de uso -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ejemplo de uso:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000000" />
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/ejemploFraseDelDia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:layout_marginBottom="12dp"
+                android:textSize="16sp"
+                android:textColor="#000000" />
 
-            </ScrollView>
+            <!-- Nivel de uso -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nivel de uso:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:id="@+id/nivelUsoFraseDelDia"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/img_matecito_nivel_uso"
+                android:src="@drawable/mates3" />
 
         </LinearLayout>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
