@@ -27,7 +27,7 @@ public class DetalleActivity extends AppCompatActivity {
 
         Button btnVolver = findViewById(R.id.btnVolver);
         btnVolver.setOnClickListener(v -> {
-            finish(); // Vuelve al LoginActivity
+            finish();
         });
 
         TextView textFrase = findViewById(R.id.textoFrase);
