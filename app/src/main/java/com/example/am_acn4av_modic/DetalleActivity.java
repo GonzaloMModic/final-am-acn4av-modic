@@ -24,7 +24,7 @@ public class DetalleActivity extends AppCompatActivity {
         });
 
         TextView textFrase = findViewById(R.id.textoFraseDetalle);
-        String frase = getIntent().getStringExtra("fraseSeleccionada");
+        String frase = getIntent().getStringExtra("frase");
         if (frase != null) {
             textFrase.setText(frase);
         } else {
