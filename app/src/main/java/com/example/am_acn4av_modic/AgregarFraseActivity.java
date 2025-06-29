@@ -1,5 +1,6 @@
 package com.example.am_acn4av_modic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -104,7 +105,10 @@ public class AgregarFraseActivity extends AppCompatActivity {
                             .add(nuevaFrase)
                             .addOnSuccessListener(documentReference -> {
                                 Toast.makeText(this, "Frase agregada correctamente", Toast.LENGTH_SHORT).show();
-                                finish(); // Vuelve al MainActivity
+
+                                Intent intent = new Intent();
+                                setResult(RESULT_OK, intent);
+                                finish();
                             })
                             .addOnFailureListener(e -> {
                                 Log.e("Firebase", "Error al agregar", e);

@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerFavoritos;
     private FraseAdapter adapterFavoritos;
+
+    private static final int REQUEST_CODE_AGREGAR_FRASE = 1001;
     //----
     private TextView tituloFrases;
     private LinearLayout layoutFraseDelDia;
@@ -150,11 +152,10 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton btnAgregar = findViewById(R.id.btnAgregar);
 
-        btnAgregar.setOnClickListener( v ->{
+        btnAgregar.setOnClickListener(v -> {
             Intent intent = new Intent(this, AgregarFraseActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE_AGREGAR_FRASE);
         });
-
 
         ImageButton btnLogOut = findViewById(R.id.btnLogOut);
 
@@ -214,6 +215,15 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("Firestore", "Error al cargar frases", e);
                     Toast.makeText(this, "Error al cargar frases", Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_AGREGAR_FRASE && resultCode == RESULT_OK) {
+            // Recargamos la lista porque se agregó una frase nueva
+            cargarFrasesDesdeFirestore();
+        }
     }
 
 
