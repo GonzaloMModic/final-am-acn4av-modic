@@ -148,6 +148,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton btnAgregar = findViewById(R.id.btnAgregar);
+
+        btnAgregar.setOnClickListener( v ->{
+            Intent intent = new Intent(this, AgregarFraseActivity.class);
+            startActivity(intent);
+        });
+
+
         ImageButton btnLogOut = findViewById(R.id.btnLogOut);
 
         btnLogOut.setOnClickListener(v -> {
