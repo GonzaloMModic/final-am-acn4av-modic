@@ -28,4 +28,7 @@
     <string name="texto_ejemplo_de_uso">Texto del ejemplo de uso</string>
     <string name="nivel_de_uso">Nivel de Uso:</string>
     <string name="descripcion_nivel_de_uso">nivel de uso</string>
+    <string name="valor_nivel_uso">Valor entre 0 (nada) y 5 (mucho)</string>
+    <string name="titulo_agregar">Agregar nueva frase</string>
+    <string name="agregar">Agregar</string>
 </resources>
