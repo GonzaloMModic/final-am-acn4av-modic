@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     favoritas.add(f);
                 }
             }
-            adapterFavoritos = new FraseAdapter(favoritas, this, frasesFavoritas, this::agregarAFavoritos);
+            adapterFavoritos = new FraseAdapter(favoritas, this, frasesFavoritas, this::agregarAFavoritos, false);
             recyclerFavoritos.setAdapter(adapterFavoritos);
 
         });
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.e("Firestore", "Error al convertir documento: " + doc.getId(), e);
                         }
                     }
-                    adapter = new FraseAdapter(frases, this, frasesFavoritas, this::agregarAFavoritos);
+                    adapter = new FraseAdapter(frases, this, frasesFavoritas, this::agregarAFavoritos, true);
                     recyclerView.setAdapter(adapter);
                     adapter.filtrar("");
                     Log.d("Firestore", "Frases cargadas: " + frases.size());

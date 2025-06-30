@@ -23,13 +23,15 @@ public class FraseAdapter extends RecyclerView.Adapter<FraseAdapter.FraseViewHol
     private Context context;
     private Set<Integer> frasesFavoritas;
     private Consumer<Frase> onFavoritoAgregado;
+    private boolean mostrarBtnFavorito;
 
-    public FraseAdapter(List<Frase> frases, Context context, Set<Integer> frasesFavoritas, Consumer<Frase> onFavoritoAgregado) {
+    public FraseAdapter(List<Frase> frases, Context context, Set<Integer> frasesFavoritas, Consumer<Frase> onFavoritoAgregado, boolean mostrarBtnFavorito) {
         this.frasesOriginales = new ArrayList<>(frases); // backup completo
         this.frasesFiltradas = new ArrayList<>(frases);  // lista que se muestra
         this.context = context;
         this.frasesFavoritas = frasesFavoritas;
         this.onFavoritoAgregado = onFavoritoAgregado;
+        this.mostrarBtnFavorito = mostrarBtnFavorito;
     }
 
     @NonNull
@@ -44,7 +46,10 @@ public class FraseAdapter extends RecyclerView.Adapter<FraseAdapter.FraseViewHol
         Frase frase = frasesFiltradas.get(position);
         holder.textoFrase.setText(frase.getFrase());
 
-        // Cambiar el icono del corazón según si está en favoritos
+        if (mostrarBtnFavorito) {
+            holder.btnFav.setVisibility(View.VISIBLE);
+
+            // Cambiar el icono del corazón según si está en favoritos
         if (frasesFavoritas.contains(frase.getIdFrase())) {
             holder.btnFav.setImageResource(R.drawable.corazon_on);
         } else {
@@ -61,6 +66,10 @@ public class FraseAdapter extends RecyclerView.Adapter<FraseAdapter.FraseViewHol
                 holder.btnFav.setImageResource(R.drawable.corazon_on);
             }
         });
+        } else {
+            holder.btnFav.setVisibility(View.GONE);
+        }
+
 
         // Listener para ir a DetalleActivity
         holder.itemView.setOnClickListener(v -> {

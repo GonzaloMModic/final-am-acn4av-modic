@@ -177,7 +177,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:padding="16dp"
+            android:padding="55dp"
             android:clipToPadding="false"
             />
 
@@ -206,7 +206,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Frase:"
+                android:text="@string/fraseFrase"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="#000000" />
@@ -215,7 +215,7 @@
                 android:id="@+id/fraseDelDiaText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="..."
+                android:text="@string/relleno"
                 android:layout_marginBottom="12dp"
                 android:textSize="16sp"
                 android:textColor="#000000" />
@@ -224,7 +224,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Origen:"
+                android:text="@string/origenFrase"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="#000000" />
@@ -233,7 +233,7 @@
                 android:id="@+id/origenFraseDelDia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="..."
+                android:text="@string/relleno"
                 android:layout_marginBottom="12dp"
                 android:textSize="16sp"
                 android:textColor="#000000" />
@@ -242,7 +242,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Significado:"
+                android:text="@string/significadoFrase"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="#000000" />
@@ -251,7 +251,7 @@
                 android:id="@+id/significadoFraseDelDia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="..."
+                android:text="@string/relleno"
                 android:layout_marginBottom="12dp"
                 android:textSize="16sp"
                 android:textColor="#000000" />
@@ -260,7 +260,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ejemplo de uso:"
+                android:text="@string/ejemplo_de_uso_frase"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="#000000" />
@@ -269,7 +269,7 @@
                 android:id="@+id/ejemploFraseDelDia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="..."
+                android:text="@string/relleno"
                 android:layout_marginBottom="12dp"
                 android:textSize="16sp"
                 android:textColor="#000000" />
@@ -278,7 +278,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nivel de uso:"
+                android:text="@string/nivel_de_uso_frase"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="#000000" />
