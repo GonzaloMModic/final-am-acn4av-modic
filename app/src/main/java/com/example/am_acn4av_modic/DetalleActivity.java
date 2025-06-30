@@ -40,7 +40,7 @@ public class DetalleActivity extends AppCompatActivity {
         String significado = getIntent().getStringExtra("significado");
 
         TextView textEjemploUso = findViewById(R.id.textoEjemploUso);
-        String ejemploUso = getIntent().getStringExtra("frase");
+        String ejemploUso = getIntent().getStringExtra("ejemploUso");
 
         ImageView imagenNivel = findViewById(R.id.imagenMatecitos);
         int nivelUso = getIntent().getIntExtra("nivelUso", 0);
