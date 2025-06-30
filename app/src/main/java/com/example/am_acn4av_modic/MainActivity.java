@@ -2,14 +2,12 @@ package com.example.am_acn4av_modic;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +23,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -70,6 +69,20 @@ public class MainActivity extends AppCompatActivity {
 
             return insets;
         });
+
+        ImageView imageView = findViewById(R.id.solPatrio);
+        String imageUrl = "https://i.imgur.com/mG7f7AI.png";
+
+        Glide.with(this)
+                .load(imageUrl)
+                .into(imageView);
+
+        ImageView imageView2 = findViewById(R.id.fondoMarco);
+        String imageUrl2 = "https://i.imgur.com/ngD2L4Z.png";
+
+        Glide.with(this)
+                .load(imageUrl2)
+                .into(imageView2);
 
         SearchView searchView = findViewById(R.id.barraBusqueda);
         recyclerView = findViewById(R.id.recyclerViewFrases);
@@ -135,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         cargarFrasesDesdeFirestore();
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -241,7 +253,6 @@ public class MainActivity extends AppCompatActivity {
             TextView origenText = findViewById(R.id.origenFraseDelDia);
             TextView significadoText = findViewById(R.id.significadoFraseDelDia);
             TextView ejemploText = findViewById(R.id.ejemploFraseDelDia);
-            ImageView imagenNivelUso = findViewById(R.id.nivelUsoFraseDelDia);
 
             fraseText.setText(fraseAleatoria.getFrase());
             origenText.setText(fraseAleatoria.getOrigen());
@@ -249,9 +260,26 @@ public class MainActivity extends AppCompatActivity {
             ejemploText.setText(fraseAleatoria.getEjemploUso());
 
             // Mostrar imagen según nivel de uso (de 0 a 5)
-            int nivel = fraseAleatoria.getNivelUso();
-            int resId = getResources().getIdentifier("mates" + nivel, "drawable", getPackageName());
-            imagenNivelUso.setImageResource(resId);
+            String[] urlsMates ={
+                    "https://i.imgur.com/vUOlJOS.png",  //mates0
+                    "https://i.imgur.com/bAV91Ij.png",  //mates1
+                    "https://i.imgur.com/PETj5pW.png",  //mates2
+                    "https://i.imgur.com/hZSMb6y.png",  //mates3
+                    "https://i.imgur.com/AXSl6fJ.png",  //mates4
+                    "https://i.imgur.com/NS0z8en.png"   //mates5
+            };
+
+            ImageView imagenNivel = findViewById(R.id.nivelUsoFraseDelDia);
+            int nivelUso = fraseAleatoria.getNivelUso();
+
+            if (nivelUso >= 0 && nivelUso < urlsMates.length) {
+                Glide.with(this).load(urlsMates[nivelUso]).into(imagenNivel);
+                Log.d("DEBUG", "nivelUso: " + nivelUso);
+            } else {
+                imagenNivel.setImageResource(R.drawable.corazon_on);
+
+            }
+
         }
     }
     private void agregarAFavoritos(Frase frase) {

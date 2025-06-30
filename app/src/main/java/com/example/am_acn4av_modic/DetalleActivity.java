@@ -11,6 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+
 public class DetalleActivity extends AppCompatActivity {
 
     @Override
@@ -42,10 +44,24 @@ public class DetalleActivity extends AppCompatActivity {
         TextView textEjemploUso = findViewById(R.id.textoEjemploUso);
         String ejemploUso = getIntent().getStringExtra("ejemploUso");
 
+
+        String[] urlsMates ={
+                "https://i.imgur.com/vUOlJOS.png",  //mates0
+                "https://i.imgur.com/bAV91Ij.png",  //mates1
+                "https://i.imgur.com/PETj5pW.png",  //mates2
+                "https://i.imgur.com/hZSMb6y.png",  //mates3
+                "https://i.imgur.com/AXSl6fJ.png",  //mates4
+                "https://i.imgur.com/NS0z8en.png"   //mates5
+        };
+
         ImageView imagenNivel = findViewById(R.id.imagenMatecitos);
         int nivelUso = getIntent().getIntExtra("nivelUso", 0);
-        String nombreImagen = "mates" + nivelUso;
-        int idImagen = getResources().getIdentifier(nombreImagen, "drawable", getPackageName());
+
+        if (nivelUso >= 0 && nivelUso < urlsMates.length) {
+            Glide.with(this).load(urlsMates[nivelUso]).into(imagenNivel);
+        } else {
+            imagenNivel.setImageResource(R.drawable.corazon_on);
+        }
 
         if (frase != null) {
             textFrase.setText(frase);
@@ -69,12 +85,6 @@ public class DetalleActivity extends AppCompatActivity {
             textEjemploUso.setText(ejemploUso);
         } else {
             textEjemploUso.setText("No se recibió el ejemplo de uso");
-        }
-
-        if (idImagen != 0) {
-            imagenNivel.setImageResource(idImagen);
-        } else {
-            imagenNivel.setImageResource(R.drawable.mates0); // imagen por defecto si no encuentra la otra
         }
     }
 }

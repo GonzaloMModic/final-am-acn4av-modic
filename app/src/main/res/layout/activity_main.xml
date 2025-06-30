@@ -131,7 +131,6 @@
             android:alpha="0.2"
             android:contentDescription="@string/marco_fondo"
             android:scaleType="fitCenter"
-            android:src="@drawable/fondo_marco"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -143,7 +142,6 @@
             android:id="@+id/solPatrio"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/sol_de_mayo"
             android:scaleType="fitCenter"
             android:alpha="0.3"
             app:layout_constraintTop_toTopOf="parent"
@@ -291,7 +289,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"
                 android:contentDescription="@string/img_matecito_nivel_uso"
-                android:src="@drawable/mates3" />
+                />
 
         </LinearLayout>
 

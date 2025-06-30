@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -21,13 +23,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-
         this.mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = this.mAuth.getCurrentUser();
         if (user != null){
             String email = user.getEmail();
             Log.i("firebase-auth", "Usuario logueado con el email " + email);
-
 
             //Si ya estoy logueado paso a ESTA pantalla directamente, deberia de poner el main aca y si no esta logueado que lleve al login
             Intent intent = new Intent(this, MainActivity.class);
@@ -41,6 +41,13 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
+
+        ImageView imageView = findViewById(R.id.imageView);
+        String imageUrl = "https://i.imgur.com/aJC3rc1.png";
+
+        Glide.with(this)
+                .load(imageUrl)
+                .into(imageView);
 
         Button btnIngresar = findViewById(R.id.btnIngresar);
         btnIngresar.setOnClickListener(v -> {

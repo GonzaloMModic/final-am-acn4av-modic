@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -29,6 +31,13 @@ public class RegisterActivity extends AppCompatActivity {
         btnVolver.setOnClickListener(v -> {
             finish(); // Vuelve al LoginActivity
         });
+
+        ImageView imageView = findViewById(R.id.imageView);
+        String imageUrl = "https://i.imgur.com/aJC3rc1.png";
+
+        Glide.with(this)
+                .load(imageUrl)
+                .into(imageView);
 
         btnRegistrar.setOnClickListener(v -> {
             String email = editTextMail.getText().toString().trim();
