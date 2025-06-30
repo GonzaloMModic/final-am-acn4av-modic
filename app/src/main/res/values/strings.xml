@@ -31,4 +31,10 @@
     <string name="valor_nivel_uso">Valor entre 0 (nada) y 5 (mucho)</string>
     <string name="titulo_agregar">Agregar nueva frase</string>
     <string name="agregar">Agregar</string>
+    <string name="fraseFrase">Frase:</string>
+    <string name="relleno">...</string>
+    <string name="origenFrase">Origen:</string>
+    <string name="significadoFrase">Significado:</string>
+    <string name="ejemplo_de_uso_frase">Ejemplo de uso:</string>
+    <string name="nivel_de_uso_frase">Nivel de uso:</string>
 </resources>
